@@ -1,14 +1,13 @@
-
 <template>
   <div class="history-container">
     <h1>会話履歴</h1>
-    
+
     <div class="history-sections">
       <div class="history-section">
         <h2>AIトーク履歴</h2>
         <div v-if="aiTalkHistory.length > 0" class="messages-area">
-          <div v-for="(conversation, index) in aiTalkHistory" :key="index" class="conversation">
-            <div v-for="(message, msgIndex) in conversation" :key="msgIndex">
+          <div class="conversation">
+            <div v-for="(message, index) in aiTalkHistory" :key="index">
               <div v-if="message.role === 'user'" class="user-message">{{ message.content }}</div>
               <div v-else class="assistant-message">{{ message.content }}</div>
             </div>
@@ -20,8 +19,8 @@
       <div class="history-section">
         <h2>AIアンサー履歴</h2>
         <div v-if="aiAnswerHistory.length > 0" class="messages-area">
-          <div v-for="(conversation, index) in aiAnswerHistory" :key="index" class="conversation">
-            <div v-for="(message, msgIndex) in conversation" :key="msgIndex">
+          <div class="conversation">
+            <div v-for="(message, index) in aiAnswerHistory" :key="index">
               <div v-if="message.role === 'user'" class="user-message">{{ message.content }}</div>
               <div v-else class="assistant-message">{{ message.content }}</div>
             </div>
@@ -33,8 +32,8 @@
       <div class="history-section">
         <h2>プロンプト作成履歴</h2>
         <div v-if="makePromptHistory.length > 0" class="messages-area">
-          <div v-for="(conversation, index) in makePromptHistory" :key="index" class="conversation">
-            <div v-for="(message, msgIndex) in conversation" :key="msgIndex">
+          <div class="conversation">
+            <div v-for="(message, index) in makePromptHistory" :key="index">
               <div v-if="message.role === 'user'" class="user-message">{{ message.content }}</div>
               <div v-else class="assistant-message">{{ message.content }}</div>
             </div>
