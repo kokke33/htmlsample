@@ -10,7 +10,12 @@
       </div>
 
       <div class="input-area">
-        <input v-model="userInput" @keyup.enter="submit" placeholder="解決したい問題を入力してください..." />
+        <textarea 
+        v-model="userInput" 
+        @keydown.ctrl.enter.prevent="submit"
+        placeholder="解決したい問題を入力してください..."
+        rows="3"
+      ></textarea>
         <button type="button" @click="submit">送信</button>
       </div>
     </div>
@@ -361,11 +366,15 @@ runGraphAI()
   margin-top: 20px; /* 上部マージンを追加してメッセージエリアとのスペースを確保 */
 }
 
-.input-area input {
+.input-area textarea {
   flex: 1;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .input-area button {
