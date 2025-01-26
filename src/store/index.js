@@ -1,29 +1,23 @@
 
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state: {
-    makePromptHistory: [],
-    aiAnswerHistory: [],
-    aiTalkHistory: []
+    makePromptMessages: [],
+    aiAnswerMessages: [],
+    aiTalkMessages: []
   },
   mutations: {
-    updateMakePromptHistory(state, messages) {
-      state.makePromptHistory = messages
-      localStorage.setItem('makePromptHistory', JSON.stringify(messages))
+    updateMakePromptMessages(state, messages) {
+      state.makePromptMessages = messages
     },
-    updateAIAnswerHistory(state, messages) {
-      state.aiAnswerHistory = messages
-      localStorage.setItem('aiAnswerHistory', JSON.stringify(messages))
+    updateAIAnswerMessages(state, messages) {
+      state.aiAnswerMessages = messages
     },
-    updateAITalkHistory(state, messages) {
-      state.aiTalkHistory = messages
-      localStorage.setItem('aiTalkHistory', JSON.stringify(messages))
-    },
-    initializeHistory(state) {
-      state.makePromptHistory = JSON.parse(localStorage.getItem('makePromptHistory') || '[]')
-      state.aiAnswerHistory = JSON.parse(localStorage.getItem('aiAnswerHistory') || '[]')
-      state.aiTalkHistory = JSON.parse(localStorage.getItem('aiTalkHistory') || '[]')
+    updateAITalkMessages(state, messages) {
+      state.aiTalkMessages = messages
     }
-  }
+  },
+  plugins: [createPersistedState()]
 })

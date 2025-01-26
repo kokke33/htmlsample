@@ -33,12 +33,7 @@ const router = createRouter({
     {
       path: '/chatgpt',
       name: 'chatgpt',
-      component: () => import('../views/ChatGPT.vue')
-    },
-    {
-      path: '/history',
-      name: 'history',
-      component: () => import('../views/History.vue'),
+      component: () => import('../views/ChatGPT.vue'),
       props: true
     },
   ]
