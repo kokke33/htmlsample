@@ -157,10 +157,14 @@ const agentFilters = [{
   agent: streamAgentFilterGenerator(outSideFunciton),
 }]
 
-const messages = ref([
-  {
-    role: 'assistant',
-    content: `プロンプトエンジニアリングへようこそ！
+import { useStore } from 'vuex'
+const store = useStore()
+const messages = computed({
+  get: () => store.state.makePromptMessages.length > 0 
+    ? store.state.makePromptMessages 
+    : [{
+      role: 'assistant',
+      content: `プロンプトエンジニアリングへようこそ！
 
 このツールは、より効果的なプロンプトを作成するためのアシスタントです。
 
@@ -204,7 +208,8 @@ const runGraphAI = async () => {
       if (nodeId.includes("llm")) { // ノードIDの条件を修正
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
-        messages.value.push(result.message); // 結果を追加
+        const newMessages = [...messages.value, result.message];
+store.commit('updateMakePromptMessages', newMessages);
         scrollToBottom();
       }
       if (nodeId === "userInput") {
