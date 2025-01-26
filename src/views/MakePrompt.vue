@@ -159,8 +159,8 @@ const agentFilters = [{
 
 import { useStore } from 'vuex'
 const store = useStore()
-const messages = computed({
-  get: () => store.state.makePromptMessages.length > 0 
+const messages = computed(() => {
+  return store.state.makePromptMessages.length > 0 
     ? store.state.makePromptMessages 
     : [{
       role: 'assistant',
@@ -179,8 +179,8 @@ const messages = computed({
 ・専門用語や技術的な要件も遠慮なく含めてください
 
 それでは、作成したいプロンプトについて教えてください。`
-  }
-])
+    }]
+})
 
 const scrollToBottom = () => {
   setTimeout(() => {
