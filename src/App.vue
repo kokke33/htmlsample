@@ -4,7 +4,8 @@
     <router-link to="/make-prompt">MakePrompt</router-link> |
     <router-link to="/ai-answer">AI Answer</router-link> |
     <router-link to="/ai-talk">AI Talk</router-link> |
-    <router-link to="/chatgpt">ChatGPT</router-link>
+    <router-link to="/chatgpt">ChatGPT</router-link> |
+    <router-link to="/history">履歴</router-link>
   </nav>
   <div class="router-view-container">
     <router-view v-slot="{ Component }">
