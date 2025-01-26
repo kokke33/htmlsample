@@ -231,8 +231,12 @@ const agentFilters = [{
   agent: streamAgentFilterGenerator(outSideFunciton),
 }]
 
-const messages = ref([
-  {
+import { useStore } from 'vuex'
+const store = useStore()
+
+const messages = ref(store.state.aiTalkHistory.length > 0 ? 
+  store.state.aiTalkHistory : 
+  [{
     role: 'assistant',
     content: `ステップバイステップ思考プロセスへようこそ！
 
@@ -277,7 +281,9 @@ const runGraphAI = async () => {
       if (nodeId.includes("llm")) { // ノードIDの条件を修正
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
-        messages.value.push(result.message); // 結果を追加
+        const newMessages = [...messages.value, result.message];
+        messages.value = newMessages;
+        store.commit('updateAITalkHistory', newMessages);
         scrollToBottom();
       }
       if (nodeId === "userInput") {
