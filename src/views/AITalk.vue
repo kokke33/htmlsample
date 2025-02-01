@@ -234,8 +234,7 @@ const agentFilters = [{
 const messages = ref([
   {
     role: 'assistant',
-    content: `ステップバイステップ思考プロセスへようこそ！
-
+    content: `
 このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
 
 ■ 特徴

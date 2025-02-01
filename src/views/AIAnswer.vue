@@ -295,8 +295,7 @@ const agentFilters = [{
 const messages = ref([
   {
     role: 'assistant',
-    content: `アイデア提案システムへようこそ！
-
+    content: `
 このツールは、あなたの課題に対して5つのアイデアを提案し、それらを詳しく分析・評価します。
 
 ■ 使い方
