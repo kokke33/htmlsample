@@ -1,9 +1,29 @@
-# 前回の資料
+# VueJS-with-Viteeee
 
-https://github.com/kokke33/GraphAI?tab=readme-ov-file
+This template should help get you started developing with Vue 3 in Vite.
 
-# WEB化
-前回作成したシェルで動くアプリケーションをWEB化
+## Recommended IDE Setup
 
-https://github.com/kokke33/GraphAI/blob/main/Sample.md
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
