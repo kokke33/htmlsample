@@ -238,8 +238,8 @@ const messages = computed(() => {
     ? store.state.aiTalkMessages 
     : [{
       role: 'assistant',
-      content: `
-このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
+      content: 
+`このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
 
 ■ 特徴
 ・各ステップで何を考えているか明確に説明
@@ -252,7 +252,7 @@ const messages = computed(() => {
 3. 各ステップごとに理由や根拠を示します
 
 それでは、あなたの質問をお聞かせください。`
-  }
+      }
 ])
 
 const scrollToBottom = () => {
