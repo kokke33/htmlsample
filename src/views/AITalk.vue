@@ -62,8 +62,9 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
             {
               role: "system",
               content: `
-              　回答は日本語でお願いします。
-                あなたは、推論を段階的に説明する専門のAIアシスタントです。
+              　私は日本語でコミュニケーションを取るAIアシスタントです。
+              すべての回答は必ず日本語で行います。
+              私の役割は、推論を段階的に説明することです。
                 各ステップについて、そのステップで行っている内容を説明するタイトルと、それに対応する内容を提供してください。
                 次のステップが必要か、それとも最終的な答えを出す準備ができているかを判断してください。
                 応答はJSON形式で返してください。
@@ -213,8 +214,8 @@ const textPromise = () => {
 }
 
 const textInputAgent = async (__context) => {
-  const result = await textPromise();
-  console.log(result);
+  const result = await textPromise()
+  console.log(result)
   return {
     text: result,
     message: { role: "user", content: result },
@@ -231,14 +232,11 @@ const agentFilters = [{
   agent: streamAgentFilterGenerator(outSideFunciton),
 }]
 
-import { useStore } from 'vuex'
-const store = useStore()
-const messages = computed(() => {
-  return store.state.aiTalkMessages.length > 0 
-    ? store.state.aiTalkMessages 
-    : [{
-      role: 'assistant',
-      content: `このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
+const messages = ref([
+  {
+    role: 'assistant',
+    content: `
+このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
 
 ■ 特徴
 ・各ステップで何を考えているか明確に説明
@@ -251,7 +249,7 @@ const messages = computed(() => {
 3. 各ステップごとに理由や根拠を示します
 
 それでは、あなたの質問をお聞かせください。`
-      }
+  }
 ])
 
 const scrollToBottom = () => {
@@ -279,8 +277,7 @@ const runGraphAI = async () => {
       if (nodeId.includes("llm")) { // ノードIDの条件を修正
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
-        const newMessages = [...messages.value, result.message];
-        store.commit('updateAITalkMessages', newMessages);
+        messages.value.push(result.message); // 結果を追加
         scrollToBottom();
       }
       if (nodeId === "userInput") {

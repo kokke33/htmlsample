@@ -1,5 +1,5 @@
 # 2025年下期
-上期で作成した成果物をWEB化
+上期で作成した成果物をWEB化。
 
 https://htmlsample-kokke33.replit.app/
 
