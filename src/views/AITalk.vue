@@ -213,8 +213,8 @@ const textPromise = () => {
 }
 
 const textInputAgent = async (__context) => {
-  const result = await textPromise()
-  console.log(result)
+  const result = await textPromise();
+  console.log(result);
   return {
     text: result,
     message: { role: "user", content: result },
@@ -238,8 +238,7 @@ const messages = computed(() => {
     ? store.state.aiTalkMessages 
     : [{
       role: 'assistant',
-      content: 
-`このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
+      content: `このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
 
 ■ 特徴
 ・各ステップで何を考えているか明確に説明
