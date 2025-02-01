@@ -28,9 +28,6 @@ import { GraphAI, agentInfoWrapper } from 'graphai'
 import * as vanilla_agents from '@graphai/vanilla'
 import * as openai_fetch_agent from '@graphai/openai_fetch_agent'
 import { streamAgentFilterGenerator } from '@graphai/agent_filters'
-import { useStore } from 'vuex'; // Import useStore
-
-const store = useStore(); // Access the Vuex store
 
 const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
   const graph_data = {
@@ -340,13 +337,11 @@ const runGraphAI = async () => {
       // LLMを含むように変更
       if (nodeId.includes("LLM")) {
         streamText.value = ""
-        const newMessages = [...messages.value, result.message];
-        store.commit('updateAIAnswerMessages', newMessages); // Updated message handling
+        messages.value.push(result.message)
         scrollToBottom()
       }
       if (nodeId === "userInput") {
-        const newMessages = [...messages.value, result.message];
-        store.commit('updateAIAnswerMessages', newMessages); // Updated message handling
+        messages.value.push(result.message)
         scrollToBottom()
       }
     }
