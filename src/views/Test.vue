@@ -1,196 +1,220 @@
 
 <template>
-  <div class="container">
-    <h1>Elevator Pitch Generator</h1>
-    <button @click="runGraphAI" :disabled="loading">
-      {{ loading ? '実行中...' : 'エレベータピッチ生成開始' }}
-    </button>
-    <div v-if="result" class="result-area">
-      <h2>最終結果</h2>
-      <pre>{{ result }}</pre>
+  <div class="chat-container">
+    <div class="messages-area">
+      <div v-for="(m, k) in messages" :key="k">
+        <div v-if="m.role === 'user'" class="user-message preserve-whitespace">{{ m.content }}</div>
+        <div v-else class="assistant-message preserve-whitespace">{{ m.content }}</div>
+      </div>
+      <div v-if="streamText !== ''" class="assistant-message preserve-whitespace">{{ streamText }}</div>
     </div>
-    <div v-if="logMessages.length" class="log-area">
-      <h2>ログ</h2>
-      <ul>
-        <li v-for="(msg, index) in logMessages" :key="index">{{ msg }}</li>
-      </ul>
+
+    <div class="input-area">
+      <textarea 
+        v-model="userInput" 
+        @keydown.ctrl.enter.prevent="submit"
+        placeholder="URLを入力してください..."
+        rows="3"
+      ></textarea>
+      <button type="button" @click="submit">送信</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { GraphAI } from 'graphai'
+import { ref, computed } from 'vue'
+import { GraphAI, agentInfoWrapper } from 'graphai'
 import * as vanilla_agents from '@graphai/vanilla'
 import * as openai_fetch_agent from '@graphai/openai_fetch_agent'
+import { streamAgentFilterGenerator } from '@graphai/agent_filters'
 
 const openApiKey = import.meta.env.VITE_OPEN_API_KEY
 
 const graph_data = {
   version: 0.5,
+  loop: {
+    while: ":continue",
+  },
   nodes: {
-    source: {
-      value: {
-        inputDocumnets: [
-          "https://gigazine.net/news/20250201-china-salmon/"
-        ]
-      }
+    continue: {
+      value: true,
+      update: ":checkInput",
     },
-    nestedNode: {
-      agent: "mapAgent",
-      inputs: {
-        rows: ":source.inputDocumnets"
-      },
-      graph: {
-        version: 0.5,
-        nodes: {
-          fetchDocument: {
-            agent: "fetchAgent",
-            console: { before: "...fetching Document" },
-            params: { type: "text" },
-            inputs: { url: [":row"] }
-          },
-          node2: {
-            agent: "stringTemplateAgent",
-            params: { template: "${0}" },
-            inputs: [":fetchDocument"],
-            isResult: true
-          },
-          matome: {
-            agent: "stringTemplateAgent",
-            params: {
-              template: [
-                {
-                  role: "system",
-                  content: 
-`あなたはベテランのプレゼンターです。 
-以下の資料の情報をもとに、初見の人達が理解でき、興味を持ってもらえるような
+    messages: {
+      value: [{
+        role: "system",
+        content: `あなたはベテランのプレゼンターです。 
+提供されたURLの記事を読み取り、初見の人達が理解でき、興味を持ってもらえるような
 エレベータピッチを作成してください。
-余計な推論などは行わずに連携した資料からのみ情報を収集してください。
-
-[資料]
-${0}`
-                }
-              ]
-            },
-            inputs: [":node2"]
-          },
-          matomeGeneratorLLM: {
-            agent: "openAIAgent",
-            console: { before: "...generating matome" },
-            params: {
-              model: "gpt-4o-mini",
-              apiKey: openApiKey
-            },
-            inputs: {
-              prompt: 
-`10分の発表時間を充足する分量で、エレベータピッチを推敲してください。
+余計な推論などは行わずに提供された資料からのみ情報を収集してください。
+10分の発表時間を充足する分量で、エレベータピッチを推敲してください。
 ステップバイステップで英語で考えてください。
 回答するのは結果のみでよいですが、日本語で回答してください。`,
-              messages: ":matome"
-            },
-            isResult: true
-          },
-          output: {
-            agent: "stringTemplateAgent",
-            params: {
-              template: [
-                { source: { content: "${0}" } },
-                { matome: { content: "${1}" } }
-              ]
-            },
-            inputs: [
-              ":node2",
-              ":matomeGeneratorLLM.choices.$0.message.content"
-            ],
-            isResult: true
-          }
-        }
-      }
+      }],
+      update: ":reducer.array",
     },
-    outputSum: {
-      agent: "stringTemplateAgent",
-      inputs: [
-        ":nestedNode.output.$0.$0.source.content",
-        ":nestedNode.output.$0.$1.matome.content",
-        ":nestedNode.output.$1.$0.source.content",
-        ":nestedNode.output.$1.$1.matome.content",
-        ":nestedNode.output.$2.$0.source.content",
-        ":nestedNode.output.$2.$1.matome.content"
-      ],
+    userInput: {
+      agent: "textInputAgent",
       params: {
-        template: "\e[34m■${0}\e[0m\n${1}\n\n\n\e[34m■${2}\e[0m\n${3}\n\n\n\e[34m■${4}\e[0m\n${5}\n\n\n"
+        message: "You:",
       },
-      console: { after: true }
     },
-    outputSumOneLLM: {
-      agent: "openAIAgent",
-      console: { before: "...generating outputSumOne" },
-      params: {
-        model: "gpt-4o-mini",
-        apiKey: openApiKey
-      },
-      inputs: {
-        query: "GraphAIの魅力を10分の発表時間を充足するようにエレベータピッチを推敲してください。",
-        prompt: ":outputSum"
-      }
+    checkInput: {
+      agent: "compareAgent",
+      inputs: { array: [":userInput.text", "!=", "/bye"] },
     },
-    outputSumOne: {
-      agent: "stringTemplateAgent",
-      inputs: [
-        ":outputSumOneLLM.choices.$0.message.content"
-      ],
+    fetchDocument: {
+      agent: "fetchAgent",
+      console: { before: "...fetching Document" },
+      params: { type: "text" },
+      inputs: { url: ":userInput.text" }
+    },
+    llm: {
+      agent: "openAIFetchAgent",
       params: {
-        template: "\e[34m■outputSumOne\e[0m\n${0}"
+        apiKey: openApiKey,
+        stream: true,
       },
-      console: { after: true }
+      isResult: true,
+      inputs: { 
+        messages: ":messages",
+        prompt: ":fetchDocument"
+      },
+    },
+    reducer: {
+      agent: "pushAgent",
+      inputs: { array: ":messages", 
+               items: [":userInput.message", { content: ":llm.text", role: "assistant" }] },
+    },
+  },
+}
+
+const userInput = ref("")
+const inputPromise = ref([])
+const submit = () => {
+  if (inputPromise.value.length > 0) {
+    const task = inputPromise.value.shift()
+    if (task) {
+      task(userInput.value)
+      userInput.value = ""
     }
   }
 }
 
-const result = ref('')
-const logMessages = ref([])
-const loading = ref(false)
+const textPromise = () => {
+  return new Promise((resolved) => {
+    const task = (message) => {
+      resolved(message)
+    }
+    inputPromise.value.push(task)
+  })
+}
 
-const onLogCallback = async ({ nodeId, state, result: nodeResult }) => {
-  logMessages.value.push(`Node: ${nodeId}, State: ${state}`)
-  if (nodeId === "outputSumOne" && state === "completed" && nodeResult) {
-    result.value = nodeResult.message ? nodeResult.message.content : JSON.stringify(nodeResult)
-    loading.value = false
+const textInputAgent = async (__context) => {
+  const result = await textPromise()
+  return {
+    text: result,
+    message: { role: "user", content: result },
   }
 }
 
+const streamText = ref("")
+const outSideFunciton = (context, data) => {
+  streamText.value = streamText.value + data
+}
+const agentFilters = [{
+  name: "streamAgentFilter",
+  agent: streamAgentFilterGenerator(outSideFunciton),
+}]
+
+import { useStore } from 'vuex'
+const store = useStore()
+const messages = computed(() => {
+  return store.state.aiTalkMessages.length > 0 
+    ? store.state.aiTalkMessages 
+    : [{
+      role: 'assistant',
+      content: `エレベータピッチ生成へようこそ！
+
+このツールは、提供されたURLの記事からエレベータピッチを生成するアシスタントです。
+
+■ 使い方
+1. 記事のURLを入力してください
+2. AIが記事を解析し、エレベータピッチを生成します
+3. 10分程度の発表に適した内容を提案します
+
+■ ヒント
+・公開されているWebページのURLを入力してください
+・記事は日本語で書かれているものを推奨します
+
+それでは、URLを入力してください。`
+    }]
+})
+
+const scrollToBottom = () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }, 100);
+}
+
 const runGraphAI = async () => {
-  loading.value = true
-  result.value = ''
-  logMessages.value = []
-  
   const graph = new GraphAI(
     graph_data,
     {
       ...vanilla_agents,
       ...openai_fetch_agent,
-    }
+      textInputAgent: agentInfoWrapper(textInputAgent),
+    },
+    { agentFilters },
   )
-  graph.onLogCallback = onLogCallback
-  
-  try {
-    await graph.run()
-  } catch (error) {
-    logMessages.value.push("エラーが発生しました: " + error)
-    loading.value = false
+  graph.onLogCallback = async ({ nodeId, state, result }) => {
+    if (state === "completed" && result) {
+      if (nodeId === "llm") {
+        streamText.value = ""
+        const newMessages = [...messages.value, result.message];
+        store.commit('updateAITalkMessages', newMessages);
+        scrollToBottom();
+      }
+      if (nodeId === "userInput") {
+        messages.value.push(result.message);
+        scrollToBottom();
+      }
+    }
   }
+  await graph.run()
 }
+
+runGraphAI()
 </script>
 
 <style scoped>
-.container {
+.chat-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
-button {
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.input-area textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.input-area button {
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
@@ -199,25 +223,35 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  background-color: #999;
-  cursor: not-allowed;
+.input-area button:hover {
+  background-color: #45a049;
 }
 
-.result-area {
-  margin-top: 20px;
-  background-color: #f8f8f8;
-  padding: 10px;
-  border-radius: 8px;
+.messages-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.preserve-whitespace {
   white-space: pre-wrap;
-  word-break: break-all;
+  word-wrap: break-word;
 }
 
-.log-area {
-  margin-top: 20px;
-  background-color: #eef;
+.user-message {
+  background-color: #cce5ff;
   padding: 10px;
   border-radius: 8px;
-  font-size: 0.9em;
+  margin-left: 30%;
+  max-width: 70%;
+}
+
+.assistant-message {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 30%;
+  max-width: 70%;
 }
 </style>
