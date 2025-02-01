@@ -231,10 +231,14 @@ const agentFilters = [{
   agent: streamAgentFilterGenerator(outSideFunciton),
 }]
 
-const messages = ref([
-  {
-    role: 'assistant',
-    content: `
+import { useStore } from 'vuex'
+const store = useStore()
+const messages = computed(() => {
+  return store.state.aiTalkMessages.length > 0 
+    ? store.state.aiTalkMessages 
+    : [{
+      role: 'assistant',
+      content: `
 このツールは、あなたの質問に対して段階的な思考プロセスを展開します。
 
 ■ 特徴
@@ -276,7 +280,8 @@ const runGraphAI = async () => {
       if (nodeId.includes("llm")) { // ノードIDの条件を修正
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
-        messages.value.push(result.message); // 結果を追加
+        const newMessages = [...messages.value, result.message];
+        store.commit('updateAITalkMessages', newMessages);
         scrollToBottom();
       }
       if (nodeId === "userInput") {
