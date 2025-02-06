@@ -1,4 +1,3 @@
-
 <template>
   <main>
     <div class="content">
@@ -40,8 +39,8 @@
 <style scoped>
 main {
   min-height: 100vh;
-  background-color: #1a1f2c;
-  color: #ffffff;
+  background-color: #ffffff; /* Background remains white */
+  color: #333333; /* Updated text color for contrast */
   padding: 40px 20px;
 }
 
@@ -52,13 +51,13 @@ main {
 
 h1 {
   font-size: 2.5em;
-  color: #ffffff;
+  color: #333333; /* Updated text color for contrast */
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
 h2 {
-  color: #ffffff;
+  color: #333333; /* Updated text color for contrast */
   margin: 2rem 0 1rem 0;
   font-size: 1.8em;
 }
@@ -67,13 +66,14 @@ h2 {
   line-height: 1.8;
   margin-bottom: 2rem;
   font-size: 1.1em;
+  color: #333333; /* Updated text color for contrast */
 }
 
 .features-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0 2.5rem 0;
-  background-color: #2a2f3c;
+  background-color: #f0f0f0; /* Light gray background for better contrast */
   border-radius: 8px;
   overflow: hidden;
 }
@@ -82,18 +82,20 @@ h2 {
 .features-table td {
   padding: 15px;
   text-align: left;
-  border: 1px solid #3a3f4c;
+  border: 1px solid #ddd; /* Lighter border color */
+  color: #333333; /* Updated text color for contrast */
 }
 
 .features-table th {
-  background-color: #2d3446;
-  color: #ffffff;
+  background-color: #eee; /* Lighter gray background for header */
+  color: #333333; /* Updated text color for contrast */
   font-weight: bold;
 }
 
 .example-list {
   list-style-type: decimal;
   padding-left: 20px;
+  color: #333333; /* Updated text color for contrast */
 }
 
 .example-list li {
