@@ -79,7 +79,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       suggestIdea_LLM: {
         agent: "openAIFetchAgent",
         params: {
-          model: "gpt-4o-mini",
+          model: "gpt-4o",
           apiKey: openApiKey,
           stream: true,
         },
