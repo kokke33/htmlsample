@@ -1,9 +1,8 @@
-
 <template>
   <main>
     <h1>QAナビ</h1>
     <p class="app-link"><a href="https://htmlsample-kokke33.replit.app/" target="_blank">https://htmlsample-kokke33.replit.app/</a></p>
-    
+
     <div class="description">
       <p>QAナビは、漠然とした疑問や課題を、AIとの対話を通じて具体的な質問に変換し、そしてその質問に対して最適な回答を提供する2段階式のシステムです。質問（Question）から最適な回答（Answer）へとナビゲートしてくれるAIアシスタントです。</p>
 
@@ -98,4 +97,3 @@ li strong {
   color: #2c3e50;
 }
 </style>
-</template>
