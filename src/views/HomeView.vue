@@ -1,10 +1,11 @@
+
 <template>
   <main>
-    <h1>QAナビ</h1>
-    <p class="app-link"><a href="https://htmlsample-kokke33.replit.app/" target="_blank">https://htmlsample-kokke33.replit.app/</a></p>
-
-    <div class="description">
-      <p>QAナビは、漠然とした疑問や課題を、AIとの対話を通じて具体的な質問に変換し、そしてその質問に対して最適な回答を提供する2段階式のシステムです。質問（Question）から最適な回答（Answer）へとナビゲートしてくれるAIアシスタントです。</p>
+    <div class="content">
+      <h1>QAナビ</h1>
+      <p class="description">
+        QAナビは、漠然とした疑問や課題を、AIとの対話を通じて具体的な質問に変換し、そしてその質問に対して最適な回答を提供する2段階式のシステムです。質問（Question）から最適な回答（Answer）へとナビゲートしてくれるAIアシスタントです。
+      </p>
 
       <h2>なぜQAナビが画期的なのか？</h2>
       <table class="features-table">
@@ -27,73 +28,81 @@
       </table>
 
       <h2>具体的な使用例</h2>
-      <ul>
-        <li><strong>レポート作成支援：</strong>「環境問題について書きたい」という漠然としたideaから、具体的なトピックや構成を提案してくれます。</li>
-        <li><strong>就活対策：</strong>「自己PRを作りたい」という要望に対し、経験の棚卸しから効果的なPRの作成まで、段階的にサポートします。</li>
-        <li><strong>日常の悩み解決：</strong>「健康的な生活を送りたい」という目標を、食事、運動、睡眠など具体的な行動計画に落とし込みます。</li>
-      </ul>
+      <ol class="example-list">
+        <li><strong>レポート作成支援</strong>「環境問題について書きたい」という漠然としたideaから、具体的なトピックや構成を提案してくれます。</li>
+        <li><strong>就活対策</strong>「自己PRを作りたい」という要望に対し、経験の棚卸しから効果的なPRの作成まで、段階的にサポートします。</li>
+        <li><strong>日常の悩み解決</strong>「健康的な生活を送りたい」という目標を、食事、運動、睡眠など具体的な行動計画に落とし込みます。</li>
+      </ol>
     </div>
   </main>
 </template>
 
 <style scoped>
 main {
-  padding: 20px;
+  min-height: 100vh;
+  background-color: #1a1f2c;
+  color: #ffffff;
+  padding: 40px 20px;
+}
+
+.content {
   max-width: 800px;
   margin: 0 auto;
 }
 
 h1 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
-.app-link {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.app-link a {
-  color: #42b983;
-  text-decoration: none;
+h2 {
+  color: #ffffff;
+  margin: 2rem 0 1rem 0;
+  font-size: 1.8em;
 }
 
 .description {
-  line-height: 1.6;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-size: 1.1em;
 }
 
 .features-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0 2rem 0;
+  margin: 1.5rem 0 2.5rem 0;
+  background-color: #2a2f3c;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .features-table th,
 .features-table td {
-  padding: 12px;
-  border: 1px solid #ddd;
+  padding: 15px;
   text-align: left;
+  border: 1px solid #3a3f4c;
 }
 
 .features-table th {
-  background-color: #f5f5f5;
+  background-color: #2d3446;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-h2 {
-  color: #2c3e50;
-  margin: 2rem 0 1rem 0;
-}
-
-ul {
+.example-list {
+  list-style-type: decimal;
   padding-left: 20px;
 }
 
-li {
-  margin-bottom: 1rem;
+.example-list li {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
 }
 
-li strong {
-  color: #2c3e50;
+.example-list strong {
+  color: #42b983;
+  margin-right: 8px;
 }
 </style>
