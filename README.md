@@ -1,6 +1,12 @@
 # 2025年下期
 上期で作成した成果物をWEB化（QAナビ）
 
+# 前回の発表
+ https://github.com/kokke33/GraphAI?tab=readme-ov-file
+
+## 前回の成果物
+ https://github.com/kokke33/GraphAI/blob/main/Sample.md
+
 ## QAナビ
 https://htmlsample-kokke33.replit.app/
 
@@ -25,8 +31,3 @@ QAナビは、漠然とした疑問や課題を、AIとの対話を通じて具�
 3. 日常の悩み解決
 「健康的な生活を送りたい」という目標を、食事、運動、睡眠など具体的な行動計画に落とし込みます。
 
-# 前回の発表
- https://github.com/kokke33/GraphAI?tab=readme-ov-file
-
-## 前回の成果物
- https://github.com/kokke33/GraphAI/blob/main/Sample.md
