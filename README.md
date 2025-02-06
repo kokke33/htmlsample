@@ -1,13 +1,15 @@
 # 2025年下期
 上期で作成した成果物をWEB化（QAナビ）
 
-# 前回の発表
+## 前回の発表
  https://github.com/kokke33/GraphAI?tab=readme-ov-file
 
-## 前回の成果物
+### 前回の成果物
  https://github.com/kokke33/GraphAI/blob/main/Sample.md
 
-## QAナビ
+----
+
+# QAナビ
 https://htmlsample-kokke33.replit.app/
 
 QAナビは、漠然とした疑問や課題を、AIとの対話を通じて具体的な質問に変換し、そしてその質問に対して最適な回答を提供する2段階式のシステムです。質問（Question）から最適な回答（Answer）へとナビゲートしてくれるAIアシスタントです。
