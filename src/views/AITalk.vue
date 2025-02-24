@@ -28,9 +28,12 @@ import { GraphAI, agentInfoWrapper } from 'graphai'
 import * as vanilla_agents from '@graphai/vanilla'
 import * as openai_fetch_agent from '@graphai/openai_fetch_agent'
 import { streamAgentFilterGenerator } from '@graphai/agent_filters'
+import { useStore } from 'vuex'; // Import useStore
+
+const store = useStore(); // Initialize store
 
 const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
-  
+
   const graph_data = {
     version: 0.5,
     loop: {
@@ -69,12 +72,12 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
                 次のステップが必要か、それとも最終的な答えを出す準備ができているかを判断してください。
                 応答はJSON形式で返してください。
                 その際、キーとして「title（タイトル）」、「content（内容）」、「next_action（次のアクション：'continue' または 'final_answer'）」を使用してください。
-                
+
                 できるだけ多くの推論ステップを使用し、最低3ステップは必要です。
                 自分がLLM（大規模言語モデル）としての限界を認識し、自分ができることとできないことを把握してください。
                 推論の中で代替の答えを探ることを含めてください。自分が間違っている可能性を考慮し、その場合どこで間違ったのかも考えてください。
                 あらゆる可能性を完全に検証してください。間違うこともあることを認識してください。
-                
+
                 「再検討している」と言う場合は、実際に再検討を行い、別のアプローチを使用してください。ただ単に「再検討している」と言うだけではいけません。
                 答えを導くために最低でも5つの方法を使用してください。
                 常にベストプラクティスを用いてください。
@@ -277,12 +280,14 @@ const runGraphAI = async () => {
       if (nodeId.includes("llm")) { // ノードIDの条件を修正
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
-        messages.value.push(result.message); // 結果を追加
+        const newMessages = [...messages.value, result.message];
+        store.commit('updateAITalkMessages', newMessages); // Update using Vuex
         scrollToBottom();
       }
       if (nodeId === "userInput") {
         console.log("User Input result:", result.message);
-        messages.value.push(result.message); // ユーザー入力も追加
+        const newMessages = [...messages.value, result.message];
+        store.commit('updateAITalkMessages', newMessages); // Update using Vuex
       }
     }
   };
