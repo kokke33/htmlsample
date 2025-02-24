@@ -295,7 +295,7 @@ const agentFilters = [{
   agent: streamAgentFilterGenerator(outSideFunciton),
 }]
 
-const messages = ref(store.state.aiAnswerMessages || [ // Initialize from store if available
+const messages = ref([
   {
     role: 'assistant',
     content: `

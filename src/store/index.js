@@ -1,6 +1,5 @@
 
 import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
   state: {
@@ -18,6 +17,5 @@ export default createStore({
     updateAITalkMessages(state, messages) {
       state.aiTalkMessages = messages
     }
-  },
-  plugins: [createPersistedState()]
+  }
 })
