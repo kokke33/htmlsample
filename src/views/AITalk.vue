@@ -130,7 +130,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
               // Sends those messages to LLM to get a response.
               agent: "openAIFetchAgent",
               params: {
-                model: "gpt-4o-mini",
+                model: "gpt-4.1-mini",
                 apiKey: openApiKey,
                 stream: true,
                 response_format: {
