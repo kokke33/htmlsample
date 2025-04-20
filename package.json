@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@graphai/agent_filters": "^0.0.8",
+    "@graphai/agents": "^1.0.2",
     "@graphai/openai_fetch_agent": "^0.1.2",
     "@graphai/vanilla": "^0.1.9",
     "@receptron/graphai_vue_cytoscape": "^0.0.13",
