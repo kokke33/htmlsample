@@ -82,7 +82,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       suggestIdea_LLM: {
         agent: "openAIFetchAgent",
         params: {
-          model: "GPT-4.1-mini",
+          model: "gpt-4.1-mini",
           apiKey: openApiKey,
           stream: true,
         },
@@ -143,7 +143,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       evaluationIdeas_LLM: {
         agent: "openAIFetchAgent",
         params: {
-          model: "GPT-4.1-mini",
+          model: "gpt-4.1-mini",
           apiKey: openApiKey,
           stream: true,
         },
@@ -186,7 +186,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       selectTop3_LLM: {
         agent: "openAIFetchAgent",
         params: {
-          model: "GPT-4.1-mini",
+          model: "gpt-4.1-mini",
           apiKey: openApiKey,
           stream: true,
         },
@@ -236,7 +236,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       nextQA_LLM: {
         agent: "openAIFetchAgent",
         params: {
-          model: "GPT-4.1-mini",
+          model: "gpt-4.1-mini",
           apiKey: openApiKey,
           stream: true,
         },
