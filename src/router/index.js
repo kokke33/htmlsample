@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -13,36 +14,32 @@ const router = createRouter({
       path: '/make-prompt',
       name: 'makePrompt',
       component: () => import('../views/MakePrompt.vue'),
-      // キャッシュのためにnameを追加
       props: true
     },
     {
       path: '/ai-answer',
       name: 'aiAnswer',
       component: () => import('../views/AIAnswer.vue'),
-      // キャッシュのためにnameを追加
       props: true
     },
     {
       path: '/ai-talk',
       name: 'aiTalk',
       component: () => import('../views/AITalk.vue'),
-      // キャッシュのためにnameを追加
       props: true
     },
     {
       path: '/chatgpt',
       name: 'chatgpt',
-      component: () => import('../views/ChatGPT.vue')
+      component: () => import('../views/ChatGPT.vue'),
+      props: true
     },
     {
       path: '/ai-rag',
       name: 'aiRag',
       component: () => import('../views/AIRAG.vue'),
       props: true
-    }ws/ChatGPT.vue'),
-      props: true
-    },
+    }
   ]
 })
 
