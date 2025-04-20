@@ -1,0 +1,66 @@
+chunk-YHJ7R5EQ.js?v=86132e90:901 Uncaught (in promise) _ValidationError: [41mInvalid Agent : tokenBoundStringsAgent is not in AgentFunctionInfoDictionary.[0m
+    at chunk-YHJ7R5EQ.js?v=86132e90:901:13
+    at Set.forEach (<anonymous>)
+    at agentValidator (chunk-YHJ7R5EQ.js?v=86132e90:899:17)
+    at validateGraphData (chunk-YHJ7R5EQ.js?v=86132e90:920:3)
+    at new GraphAI (chunk-YHJ7R5EQ.js?v=86132e90:1084:5)
+    at runGraphAI (AIRAG.vue:198:17)
+    at setup (AIRAG.vue:227:1)
+    at callWithErrorHandling (chunk-J6475X5X.js?v=86132e90:1565:18)
+    at setupStatefulComponent (chunk-J6475X5X.js?v=86132e90:8631:25)
+    at setupComponent (chunk-J6475X5X.js?v=86132e90:8592:36)
+(anonymous) @ chunk-YHJ7R5EQ.js?v=86132e90:901
+agentValidator @ chunk-YHJ7R5EQ.js?v=86132e90:899
+validateGraphData @ chunk-YHJ7R5EQ.js?v=86132e90:920
+GraphAI @ chunk-YHJ7R5EQ.js?v=86132e90:1084
+runGraphAI @ AIRAG.vue:198
+setup @ AIRAG.vue:227
+callWithErrorHandling @ chunk-J6475X5X.js?v=86132e90:1565
+setupStatefulComponent @ chunk-J6475X5X.js?v=86132e90:8631
+setupComponent @ chunk-J6475X5X.js?v=86132e90:8592
+mountComponent @ chunk-J6475X5X.js?v=86132e90:6997
+processComponent @ chunk-J6475X5X.js?v=86132e90:6963
+patch @ chunk-J6475X5X.js?v=86132e90:6436
+componentUpdateFn @ chunk-J6475X5X.js?v=86132e90:7171
+run @ chunk-J6475X5X.js?v=86132e90:423
+instance.update @ chunk-J6475X5X.js?v=86132e90:7212
+updateComponent @ chunk-J6475X5X.js?v=86132e90:7039
+processComponent @ chunk-J6475X5X.js?v=86132e90:6974
+patch @ chunk-J6475X5X.js?v=86132e90:6436
+componentUpdateFn @ chunk-J6475X5X.js?v=86132e90:7171
+run @ chunk-J6475X5X.js?v=86132e90:423
+instance.update @ chunk-J6475X5X.js?v=86132e90:7212
+callWithErrorHandling @ chunk-J6475X5X.js?v=86132e90:1565
+flushJobs @ chunk-J6475X5X.js?v=86132e90:1763
+Promise.then
+queueFlush @ chunk-J6475X5X.js?v=86132e90:1676
+queueJob @ chunk-J6475X5X.js?v=86132e90:1670
+(anonymous) @ chunk-J6475X5X.js?v=86132e90:7208
+triggerEffect @ chunk-J6475X5X.js?v=86132e90:614
+triggerEffects @ chunk-J6475X5X.js?v=86132e90:604
+triggerRefValue @ chunk-J6475X5X.js?v=86132e90:1211
+(anonymous) @ chunk-J6475X5X.js?v=86132e90:1371
+triggerEffect @ chunk-J6475X5X.js?v=86132e90:614
+triggerEffects @ chunk-J6475X5X.js?v=86132e90:599
+triggerRefValue @ chunk-J6475X5X.js?v=86132e90:1211
+(anonymous) @ chunk-J6475X5X.js?v=86132e90:1371
+triggerEffect @ chunk-J6475X5X.js?v=86132e90:614
+triggerEffects @ chunk-J6475X5X.js?v=86132e90:599
+triggerRefValue @ chunk-J6475X5X.js?v=86132e90:1211
+(anonymous) @ chunk-J6475X5X.js?v=86132e90:1371
+triggerEffect @ chunk-J6475X5X.js?v=86132e90:614
+triggerEffects @ chunk-J6475X5X.js?v=86132e90:599
+triggerRefValue @ chunk-J6475X5X.js?v=86132e90:1211
+(anonymous) @ chunk-J6475X5X.js?v=86132e90:1371
+triggerEffect @ chunk-J6475X5X.js?v=86132e90:614
+triggerEffects @ chunk-J6475X5X.js?v=86132e90:599
+triggerRefValue @ chunk-J6475X5X.js?v=86132e90:1211
+set value @ chunk-J6475X5X.js?v=86132e90:1255
+finalizeNavigation @ vue-router.js?v=86132e90:2499
+(anonymous) @ vue-router.js?v=86132e90:2409
+Promise.then
+pushWithRedirect @ vue-router.js?v=86132e90:2377
+push @ vue-router.js?v=86132e90:2303
+install @ vue-router.js?v=86132e90:2656
+use @ chunk-J6475X5X.js?v=86132e90:5143
+(anonymous) @ main.js:8
