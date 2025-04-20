@@ -27,6 +27,7 @@ import { ref } from 'vue'
 import { GraphAI, agentInfoWrapper } from 'graphai'
 import * as vanilla_agents from '@graphai/vanilla'
 import * as openai_fetch_agent from '@graphai/openai_fetch_agent'
+import * as wikipedia_agent from '@graphai/wikipedia_agent'
 import { streamAgentFilterGenerator } from '@graphai/agent_filters'
 import { useStore } from 'vuex'; // Assuming Vuex is used
 
@@ -229,6 +230,7 @@ const runGraphAI = async () => {
     {
       ...vanilla_agents,
       ...openai_fetch_agent,
+      ...wikipedia_agent,
       textInputAgent: agentInfoWrapper(textInputAgent),
     },
     { agentFilters },
