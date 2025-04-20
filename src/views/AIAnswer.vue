@@ -198,7 +198,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       },
       appender3: {
         agent: "pushAgent",
-        inputs: { array: ":appender.array", 
+        inputs: { array: ":appender2.array", 
                  items: [{ content: ":selectTop3_LLM.text", role: "assistant" }] },
         // console: { after:true},
       },
@@ -249,7 +249,7 @@ const openApiKey = import.meta.env.VITE_OPEN_API_KEY;
       // 最後の出力
       reducer: {
         agent: "pushAgent",
-        inputs: { array: ":appender.array", 
+        inputs: { array: ":appender3.array", 
                  items: [{ content: ":nextQA_LLM.text", role: "assistant" }] },
         // console: { after:true},
       },
@@ -337,20 +337,33 @@ const runGraphAI = async () => {
   )
   graph.onLogCallback = async ({ nodeId, state, result }) => {
     if (state === "completed" && result) {
-      // LLMを含むように変更
+      // LLMを含むノードの完了時
       if (nodeId.includes("LLM")) {
-        streamText.value = ""
-        const newMessages = [...messages.value, result.message];
-        store.commit('updateAIAnswerMessages', newMessages);
-        scrollToBottom()
+        streamText.value = "" // ストリーミング表示をクリア
+        // result.message が存在し、content があることを確認
+        if (result.message && result.message.content) {
+            const newMessages = [...messages.value, result.message];
+            messages.value = newMessages; // messages ref を直接更新
+            scrollToBottom();
+        } else {
+            // 予期せぬresult.messageの場合のログ出力（デバッグ用）
+            console.warn(`LLM node ${nodeId} completed but result.message is missing or invalid:`, result);
+        }
       }
+      // ユーザー入力ノードの完了時
       if (nodeId === "userInput") {
-        const newMessages = [...messages.value, result.message];
-        store.commit('updateAIAnswerMessages', newMessages);
-        scrollToBottom()
+        // result.message が存在することを確認
+        if (result.message) {
+            const newMessages = [...messages.value, result.message];
+            messages.value = newMessages; // messages ref を直接更新
+            scrollToBottom();
+        } else {
+             console.warn(`userInput node completed but result.message is missing:`, result);
+        }
       }
     }
   }
+
   await graph.run()
 }
 

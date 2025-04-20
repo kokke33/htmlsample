@@ -281,14 +281,23 @@ const runGraphAI = async () => {
         console.log("LLM result:", result.message);
         streamText.value = ""; // ストリーミングをリセット
         const newMessages = [...messages.value, result.message];
+        // ★★★ ローカルの messages ref も直接更新する ★★★
+        messages.value = newMessages;
+        // Vuexストアも更新（現在の実装を維持する場合）
         store.commit('updateAITalkMessages', newMessages); // Update using Vuex
+        // ★★★ ここまで修正 ★★★
         scrollToBottom();
       }
+
       if (nodeId === "userInput") {
         console.log("User Input result:", result.message);
         const newMessages = [...messages.value, result.message];
+        // ★★★ ローカルの messages ref も直接更新する ★★★
+        messages.value = newMessages;
+        // Vuexストアも更新（現在の実装を維持する場合）
         store.commit('updateAITalkMessages', newMessages); // Update using Vuex
       }
+
     }
   };
 

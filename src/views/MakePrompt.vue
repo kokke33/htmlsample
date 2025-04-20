@@ -86,7 +86,7 @@ const graph_data = {
     llm: {
       agent: "openAIFetchAgent",
       params: {
-        model: "gpt-4o-mini",
+        model: "gpt-4.1-mini",
         apiKey: openApiKey,
         stream: true,
       },
