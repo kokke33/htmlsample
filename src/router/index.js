@@ -33,7 +33,14 @@ const router = createRouter({
     {
       path: '/chatgpt',
       name: 'chatgpt',
-      component: () => import('../views/ChatGPT.vue'),
+      component: () => import('../views/ChatGPT.vue')
+    },
+    {
+      path: '/ai-rag',
+      name: 'aiRag',
+      component: () => import('../views/AIRAG.vue'),
+      props: true
+    }ws/ChatGPT.vue'),
       props: true
     },
   ]
