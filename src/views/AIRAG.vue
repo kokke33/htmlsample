@@ -89,12 +89,12 @@ GraphAIは設計上、データフローグラフを非巡回にする必要が�
       }
     },
     referenceText: {
-      agent: "tokenBoundStringsAgent",
+      agent: "stringJoinAgent",
       inputs: {
-        chunks: ":sortedChunks"
+        array: ":sortedChunks"
       },
       params: {
-        limit: 2000
+        separator: "\n\n"
       }
     },
     prompt: {
