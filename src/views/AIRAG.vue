@@ -27,7 +27,7 @@ import { ref } from 'vue'
 import { GraphAI, agentInfoWrapper } from 'graphai'
 import * as vanilla_agents from '@graphai/vanilla'
 import * as openai_fetch_agent from '@graphai/openai_fetch_agent'
-import * as agents from '@graphai/agents'
+import * as agents from '@graphai/browser_agents'
 import { streamAgentFilterGenerator } from '@graphai/agent_filters'
 import { useStore } from 'vuex'; // Assuming Vuex is used
 
